@@ -3,10 +3,12 @@ import './assets/scss/index.scss'
 import { createApp } from 'vue'
 import router from './router'
 
-import App from './app.vue'
 import Prism from 'prismjs'
 import Normalizer from 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace'
 import 'prismjs/plugins/toolbar/prism-toolbar'
+import App from './app.vue'
+import { i18n } from './lang/index'
+
 
 new Normalizer({
   'remove-trailing': true,
@@ -17,6 +19,7 @@ new Normalizer({
 
 const app = createApp(App)
 app.use(router)
+app.use(i18n)
 app.mixin({
   updated() {
     Prism.highlightAll()

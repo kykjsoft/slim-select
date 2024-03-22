@@ -1,16 +1,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import { } from 'vue-i18n'
 import SlimSelect from '../slim-select'
 import { debounce } from '../slim-select/helpers'
 import Settings from '../slim-select/settings'
-import { DataArray } from '../slim-select/store'
 import CarbonAd from './components/carbonad.vue'
+import LangSelect from './lang/lang.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    CarbonAd,
+    CarbonAd, LangSelect
   },
   data() {
     return {
@@ -21,13 +22,16 @@ export default defineComponent({
       year: new Date().getFullYear(),
       width: 0,
       height: 0,
-
-      navData: [
-        { text: 'Home', value: '/', class: 'label' },
+    }
+  },
+  computed: {
+    navData() {
+      return [
+        { text: this.$t('docs.menus.home'), value: '/', class: 'label' },
 
         // Install
         {
-          label: 'Install',
+          label: this.$t('docs.menus.install'),
           closable: 'close',
           options: [
             { text: 'npm', value: 'install#npm' },
@@ -38,7 +42,7 @@ export default defineComponent({
 
         // Select
         {
-          label: 'Selects',
+          label: this.$t('docs.menus.selects'),
           closable: 'close',
           options: [
             { text: 'single', value: 'selects#single' },
@@ -48,7 +52,7 @@ export default defineComponent({
 
         // Data
         {
-          label: 'Data',
+          label: this.$t('docs.menus.data'),
           closable: 'close',
           options: [
             { text: 'types', value: 'data#types' },
@@ -58,7 +62,7 @@ export default defineComponent({
 
         // Settings
         {
-          label: 'Settings',
+          label: this.$t('docs.menus.settings'),
           closable: 'close',
           options: [
             { text: 'select', value: 'settings#select' },
@@ -77,7 +81,7 @@ export default defineComponent({
             { text: 'cssClass', value: 'settings#cssClass' },
             { text: 'inlineStyles', value: 'settings#inlineStyles' },
             { text: 'html', value: 'settings#html' },
-            { text: 'keepOrder', value: 'settings#keepOrder'},
+            { text: 'keepOrder', value: 'settings#keepOrder' },
             { text: 'search', value: 'settings#search' },
             { text: 'closeOnSelect', value: 'settings#closeOnSelect' },
             { text: 'showOptionTooltips', value: 'settings#showOptionTooltips' },
@@ -89,7 +93,7 @@ export default defineComponent({
 
         // Events
         {
-          label: 'Events',
+          label: this.$t('docs.menus.events'),
           closable: 'close',
           options: [
             { text: 'error', value: 'events#error' },
@@ -104,7 +108,7 @@ export default defineComponent({
 
         // Methods
         {
-          label: 'Methods',
+          label: this.$t('docs.menus.methods'),
           closable: 'close',
           options: [
             { text: 'getSelected', value: 'methods#getSelected' },
@@ -120,14 +124,14 @@ export default defineComponent({
 
         // Frameworks
         {
-          label: 'Frameworks',
+          label: this.$t('docs.menus.frameworks'),
           closable: 'close',
           options: [
             { text: 'vue', value: 'vue' },
             { text: 'react', value: 'react' },
           ],
         },
-      ] as DataArray,
+      ] as any
     }
   },
   mounted() {
@@ -248,9 +252,10 @@ export default defineComponent({
           <img src="./assets/images/npm.png" />
         </a>
       </div>
+      <LangSelect></LangSelect>
     </div>
     <div class="bar">
-      <div class="tagline">Advanced select dropdown</div>
+      <div class="tagline">{{ $t('docs.description') }}</div>
       <div class="drop">
         <svg viewBox="0 0 100 100">
           <path d="M10,30 L50,70 L90,30" />
